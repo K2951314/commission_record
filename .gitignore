@@ -1,0 +1,15 @@
+.DS_Store
+*.pyc
+*.egg-info
+*.swp
+tags
+commission_record/docs/current
+*.pyc
+__pycache__
+.pytest_cache
+node_modules/
+dist/
+.vscode
+.coverage
+coverage.xml
+.python-version
