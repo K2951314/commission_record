@@ -1,0 +1,153 @@
+
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CR-{YY}-{MM}-{####}",
+ "creation": "2024-03-19 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_basic",
+  "contact",
+  "orders",
+  "section_amounts",
+  "column_amounts_left",
+  "total_sales",
+  "total_purchase",
+  "total_shipping",
+  "column_amounts_right",
+  "commission_amount",
+  "payment_status",
+  "remaining_commission"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_basic",
+   "fieldtype": "Section Break",
+   "label": "基本信息"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "联系人",
+   "options": "Contact",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "orders",
+   "fieldtype": "Table",
+   "label": "订单",
+   "options": "Commission Record Detail",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_amounts",
+   "fieldtype": "Section Break",
+   "label": "金额信息"
+  },
+  {
+   "fieldname": "column_amounts_left",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_sales",
+   "fieldtype": "Currency",
+   "label": "销售总额",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_purchase",
+   "fieldtype": "Currency",
+   "label": "采购总额",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_shipping",
+   "fieldtype": "Currency",
+   "label": "快递总额",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_amounts_right",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "label": "分成金额",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "default": "未支付",
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "label": "支付状态",
+   "options": "未支付\n部分支付\n已支付",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "remaining_commission",
+   "fieldtype": "Currency",
+   "label": "剩余分成",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+    {
+      "group": "支付记录",
+      "link_doctype": "Commission Payment",
+      "link_fieldname": "contact",
+      "link_filters": {
+        "contact": ["=", "{contact}"],
+        "docstatus": ["!=", 2]
+      }
+    }
+ ],
+ "modified": "2024-03-19 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Commission Record Module",
+ "name": "Commission Record",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1,
+   "cancel": 1,
+   "amend": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "contact,payment_status,commission_amount"
+}

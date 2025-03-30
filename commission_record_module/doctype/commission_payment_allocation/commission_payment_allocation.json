@@ -1,0 +1,52 @@
+
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2024-03-25 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "commission_record",
+  "commission_amount",
+  "allocated_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "commission_record",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "分成记录",
+   "options": "Commission Record",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "commission_record.commission_amount",
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "分成金额",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allocated_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "分配金额",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-25 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Commission Record Module",
+ "name": "Commission Payment Allocation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
