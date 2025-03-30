@@ -1,0 +1,110 @@
+
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CP-{YY}-{MM}-{####}",
+ "creation": "2024-03-19 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "contact",
+  "payment_amount",
+  "payment_date",
+  "column_break_1",
+  "total_allocated_amount",
+  "remaining_amount",
+  "section_break_1",
+  "allocations"
+ ],
+ "fields": [
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "联系人",
+   "options": "Contact",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "支付金额",
+   "reqd": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "payment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "支付日期",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_allocated_amount",
+   "fieldtype": "Currency",
+   "label": "已分配金额",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_amount",
+   "fieldtype": "Currency",
+   "label": "未分配金额",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "分配明细"
+  },
+  {
+   "fieldname": "allocations",
+   "fieldtype": "Table",
+   "label": "分配明细",
+   "options": "Commission Payment Allocation",
+   "reqd": 1,
+   "allow_on_submit": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+    {
+      "group": "记录",
+      "link_doctype": "Commission Record",
+      "link_fieldname": "commission_record",
+      "table_fieldname": "allocations"
+    }
+ ],
+ "modified": "2024-03-19 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Commission Record Module",
+ "name": "Commission Payment",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1,
+   "cancel": 1,
+   "amend": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
