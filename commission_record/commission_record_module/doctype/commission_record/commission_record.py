@@ -8,6 +8,14 @@ class CommissionRecord(Document):
         self.calculate_totals()
         self.calculate_remaining_commission()
     
+    def on_submit(self):
+        """提交时更新联系人分成信息"""
+        self.update_contact_commission()
+    
+    def on_cancel(self):
+        """取消提交时更新联系人分成信息"""
+        self.update_contact_commission()
+    
     def on_update_after_submit(self):
         """提交后更新时重新计算剩余分成"""
         self.calculate_remaining_commission()
@@ -16,20 +24,22 @@ class CommissionRecord(Document):
         self.update_contact_commission()
     
     def calculate_totals(self):
-        """计算总额"""
+        """计算总额和分成金额"""
         total_sales = 0
         total_purchase = 0
         total_shipping = 0
         
         for order in self.orders:
             total_sales += flt(order.sales_amount)
-            total_purchase += flt(order.purchase_amount)
-            total_shipping += flt(order.shipping_amount)
+            total_purchase += flt(order.purchase_cost)
+            total_shipping += flt(order.shipping_fee)
         
         self.total_sales = total_sales
         self.total_purchase = total_purchase
         self.total_shipping = total_shipping
-        self.commission_amount = total_sales - total_purchase - total_shipping
+        
+        # 分成金额 = (销售总额 - 采购总额 - 快递总额) / 2
+        self.commission_amount = flt((total_sales - total_purchase - total_shipping) / 2)
         
     def calculate_remaining_commission(self):
         """计算剩余分成金额"""

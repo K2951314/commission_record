@@ -10,6 +10,7 @@
   "section_basic",
   "contact",
   "orders",
+  "commission_payment",
   "section_amounts",
   "column_amounts_left",
   "total_sales",
@@ -40,6 +41,12 @@
    "label": "订单",
    "options": "Commission Record Detail",
    "reqd": 1
+  },
+  {
+   "fieldname": "commission_payment",
+   "fieldtype": "Link",
+   "label": "分成支付单据",
+   "options": "Commission Payment"
   },
   {
    "fieldname": "section_amounts",

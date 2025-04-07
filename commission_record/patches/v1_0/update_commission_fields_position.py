@@ -1,7 +1,8 @@
+
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 def execute():
-    """创建联系人的分成字段"""
+    """更新联系人分成字段的位置"""
     custom_fields = {
         "Contact": [
             {
@@ -23,4 +24,5 @@ def execute():
         ]
     }
     
-    create_custom_fields(custom_fields, ignore_validate=True)
+    # 更新现有字段
+    create_custom_fields(custom_fields, update=True)

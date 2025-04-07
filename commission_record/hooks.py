@@ -6,6 +6,14 @@ app_email = "qdsmqb@163.com"
 app_license = "MIT"
 required_apps = ["erpnext"]
 
+# Translations
+translations = [
+    {
+        "source_file": "translations/zh.csv",
+        "target_language": "zh"
+    }
+]
+
 # 文档事件
 doc_events = {
     "Contact": {

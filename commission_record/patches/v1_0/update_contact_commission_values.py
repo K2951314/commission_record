@@ -1,3 +1,4 @@
+import frappe
 from frappe.utils import flt
 
 def execute():
@@ -15,7 +16,7 @@ def update_contact_commission(contact_name):
     """更新指定联系人的分成值"""
     # 获取该联系人的所有分成记录
     commission_records = frappe.get_all(
-        "分成记录",
+        "Commission Record",
         filters={
             "contact": contact_name,
             "docstatus": 1
