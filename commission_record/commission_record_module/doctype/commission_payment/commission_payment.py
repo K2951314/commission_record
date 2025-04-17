@@ -136,6 +136,10 @@ class CommissionPayment(Document):
         """计算总分配金额和未分配金额"""
         self.total_allocated_amount = sum(flt(d.allocated_amount) for d in self.allocations)
         self.remaining_amount = flt(self.payment_amount) - flt(self.total_allocated_amount)
+        
+        # 确保分配金额不超过支付金额
+        if flt(self.total_allocated_amount) > flt(self.payment_amount):
+            frappe.throw(_("分配总金额不能超过支付金额"))
     
     def auto_allocate_if_needed(self):
         """自动分配支付金额到未完全支付的分成记录"""
