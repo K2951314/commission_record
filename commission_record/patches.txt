@@ -6,3 +6,4 @@ commission_record.patches.v1_0.adjust_commission_fields_position
 commission_record.patches.v1_0.fix_commission_payment_relation
 commission_record.patches.v1_0.fix_notification_query
 commission_record.patches.v1_0.update_commission_calculation
+commission_record.patches.v1_0.set_default_commission_percentage_in_records

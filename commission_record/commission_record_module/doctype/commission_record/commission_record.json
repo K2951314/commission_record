@@ -6,10 +6,12 @@
  "creation": "2024-03-19 10:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "field_order": [
-  "section_basic",
-  "contact",
-  "orders",
+   "field_order": [
+   "section_basic",
+   "contact",
+   "column_basic_right",
+   "commission_percentage",
+   "orders",
   "commission_payment",
   "section_amounts",
   "column_amounts_left",
@@ -21,12 +23,24 @@
   "payment_status",
   "remaining_commission"
  ],
- "fields": [
-  {
-   "fieldname": "section_basic",
-   "fieldtype": "Section Break",
-   "label": "基本信息"
-  },
+   "fields": [
+   {
+    "fieldname": "section_basic",
+    "fieldtype": "Section Break",
+    "label": "基本信息"
+   },
+   {
+    "fieldname": "column_basic_right",
+    "fieldtype": "Column Break"
+   },
+   {
+    "default": "50",
+    "fieldname": "commission_percentage",
+    "fieldtype": "Percent",
+    "label": "分成比例",
+    "description": "输入0-100之间的数字，表示分成比例的百分比",
+    "reqd": 1
+   },
   {
    "fieldname": "contact",
    "fieldtype": "Link",

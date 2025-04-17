@@ -38,8 +38,8 @@ class CommissionRecord(Document):
         self.total_purchase = total_purchase
         self.total_shipping = total_shipping
         
-        # 分成金额 = (销售总额 - 采购总额 - 快递总额) / 2
-        self.commission_amount = flt((total_sales - total_purchase - total_shipping) / 2)
+        # 分成金额 = (销售总额 - 采购总额 - 快递总额) * 分成比例
+        self.commission_amount = flt((total_sales - total_purchase - total_shipping) * (self.commission_percentage / 100))
         
     def calculate_remaining_commission(self):
         """计算剩余分成金额"""

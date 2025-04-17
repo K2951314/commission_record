@@ -7,6 +7,10 @@ apps/commission_record/commission_record_module/doctype/commission_payment/commi
 apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,注意：还有 {0} 的金额未分配到任何分成记录。这可能是因为没有足够的未支付分成记录。,Note: {0} amount remains unallocated. This may be due to insufficient unpaid commission records.
 apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,未支付分成,Unpaid Commission
 
+# Module
+Commission Record Module,分成记录
+Export Excel Template,导出Excel模板
+
 # DocType: Commission Payment
 DocType: Commission Payment,Commission Payment,分成支付
 DocType: Commission Payment,Contact,联系人
@@ -35,8 +39,12 @@ DocType: Commission Record,Payment Status,支付状态
 DocType: Commission Record,Remaining Commission,剩余分成
 DocType: Commission Record,Basic Information,基本信息
 DocType: Commission Record,Amount Information,金额信息
+DocType: Commission Record,Commission Percentage,分成比例
 
 # Status
 DocType: Commission Record,Unpaid,未支付
 DocType: Commission Record,Partially Paid,部分支付
 DocType: Commission Record,Paid,已支付
+
+Commission Record,分成记录
+Commission Payment,分成支付
