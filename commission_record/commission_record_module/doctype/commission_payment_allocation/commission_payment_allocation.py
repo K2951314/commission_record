@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import frappe
@@ -27,5 +26,5 @@ class CommissionPaymentAllocation(Document):
             AND cpa.name != %s
         """, (self.commission_record, self.name))[0][0]
         
-        # 计算剩余金额
-        self.remaining_amount = flt(self.commission_amount) - (flt(total_allocated) + flt(self.allocated_amount))
+        # 确保剩余金额计算逻辑与分成记录一致
+        self.remaining_amount = flt(self.commission_amount) - flt(total_allocated) - flt(self.allocated_amount)

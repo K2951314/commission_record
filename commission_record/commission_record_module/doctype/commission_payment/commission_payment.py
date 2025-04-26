@@ -1,4 +1,3 @@
-
 import frappe
 from frappe.model.document import Document
 from frappe.utils import flt, cint
@@ -94,16 +93,44 @@ class CommissionPayment(Document):
         self.validate_payment_amount()
         self.validate_allocations()
         self.calculate_amounts()
+        
+        # 设置初始状态
+        if self.docstatus == 0:
+            self.status = "Draft"
+            
         if not self.flags.ignore_auto_allocate:
             self.auto_allocate_if_needed()
+        self.flags.ignore_validate = True  # 防止重复验证
     
     def on_submit(self):
+        # 更新状态为已提交
+        self.status = "Submitted"
+        frappe.db.set_value(self.doctype, self.name, 'status', 'Submitted', update_modified=False)
+        
+        # 更新关联记录
         self.update_commission_records()
         self.update_contact_commission()
+        
+        # 提交更改
+        frappe.db.commit()
+        
+        # 记录调试信息
+        frappe.logger().debug(f"Successfully submitted Commission Payment {self.name}")
     
     def on_cancel(self):
+        # 更新状态为已取消
+        self.status = "Cancelled"
+        frappe.db.set_value(self.doctype, self.name, 'status', 'Cancelled', update_modified=False)
+        
+        # 更新关联记录
         self.update_commission_records(cancel=True)
         self.update_contact_commission()
+        
+        # 提交更改
+        frappe.db.commit()
+        
+        # 记录调试信息
+        frappe.logger().debug(f"Successfully cancelled Commission Payment {self.name}")
     
     def on_update_after_submit(self):
         """提交后更新时重新计算并更新相关记录"""
@@ -143,81 +170,41 @@ class CommissionPayment(Document):
     
     def auto_allocate_if_needed(self):
         """自动分配支付金额到未完全支付的分成记录"""
-        if not flt(self.payment_amount):
-            return
-            
-        self.allocations = []
-        
-        allocations = get_unpaid_commission_records(self.contact, self.payment_amount)
-        
-        if not allocations:
-            frappe.msgprint(_("该联系人没有未支付的分成记录"), alert=True)
-            return
-            
-        for allocation in allocations:
-            self.append("allocations", {
-                "commission_record": allocation['name'],
-                "commission_amount": allocation['commission_amount'],
-                "allocated_amount": allocation['allocated_amount'],
-                "remaining_amount": allocation['remaining_amount']
-            })
-            
-            # 更新分成记录的commission_payment字段
-            frappe.db.set_value(
-                "Commission Record",
-                allocation['name'],
-                "commission_payment",
-                self.name
-            )
-        
-        self.calculate_amounts()
-        
-        if flt(self.remaining_amount) > 0:
-            frappe.msgprint(
-                _("注意：还有 {0} 的金额未分配到任何分成记录。这可能是因为没有足够的未支付分成记录。").format(self.remaining_amount),
-                indicator='orange',
-                alert=True
-            )
-    
+        pass
+
     def update_commission_records(self, cancel=False):
-        """更新相关分成记录"""
-        commission_records = list(set(d.commission_record for d in self.allocations))
-        
-        for record_name in commission_records:
-            comm_record = frappe.get_doc("Commission Record", record_name)
+        """更新分成记录的支付状态和剩余金额"""
+        # 如果没有分配明细，则直接返回
+        if not self.allocations:
+            return
             
-            if cancel:
-                comm_record.commission_payment = None
-            else:
-                comm_record.commission_payment = self.name
-                
-            # 计算已支付金额
-            paid_amount = frappe.db.sql("""
-                SELECT IFNULL(SUM(cpa.allocated_amount), 0)
-                FROM `tabCommission Payment Allocation` cpa
-                INNER JOIN `tabCommission Payment` cp ON cp.name = cpa.parent
-                WHERE cpa.commission_record = %s
-                AND cp.docstatus = 1
-            """, record_name)[0][0]
+        # 遍历所有分配明细
+        for allocation in self.allocations:
+            # 获取分成记录文档
+            record = frappe.get_doc("Commission Record", allocation.commission_record)
+            
+            # 重新计算分成记录的剩余分成金额
+            record.calculate_remaining_commission()
             
             # 更新支付状态
-            if flt(paid_amount) >= flt(comm_record.commission_amount):
-                comm_record.payment_status = "已支付"
-            elif flt(paid_amount) > 0:
-                comm_record.payment_status = "部分支付"
-            else:
-                comm_record.payment_status = "未支付"
-                
-            comm_record.remaining_commission = flt(comm_record.commission_amount) - flt(paid_amount)
-            comm_record.flags.ignore_validate_update_after_submit = True
-            comm_record.save(ignore_permissions=True)
-    
+            record.update_payment_status()
+            
+            # 保存更新到数据库
+            record.db_update()
+            
+            # 刷新文档，确保变更生效
+            frappe.db.commit()
+
     def update_contact_commission(self):
-        """更新联系人的分成信息"""
+        """更新联系人的分成总额和剩余分成"""
+        # 如果没有联系人，则直接返回
         if not self.contact:
             return
             
-        # 计算联系人的所有分成总额
+        # 获取联系人文档
+        contact = frappe.get_doc("Contact", self.contact)
+        
+        # 计算联系人的所有分成记录总额
         total_commission = frappe.db.sql("""
             SELECT IFNULL(SUM(commission_amount), 0)
             FROM `tabCommission Record`
@@ -236,12 +223,6 @@ class CommissionPayment(Document):
         """, self.contact)[0][0]
         
         # 更新联系人的分成总额和剩余分成
-        frappe.db.set_value(
-            "Contact",
-            self.contact,
-            {
-                'total_commission': total_commission,
-                'remaining_commission': flt(total_commission) - flt(total_paid)
-            },
-            update_modified=False
-        )
+        contact.db_set('total_commission', total_commission)
+        contact.db_set('remaining_commission', flt(total_commission) - flt(total_paid))
+        contact.notify_update() 

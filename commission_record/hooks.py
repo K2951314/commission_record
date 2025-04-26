@@ -30,20 +30,11 @@ doc_events = {
 # 自定义字段配置
 # 指定要安装的自定义字段
 fixtures = [
-    {
-        "dt": "Custom Field",  # 文档类型(自定义字段)
-        "filters": [  # 过滤条件
-            [
-                "name",  # 字段名
-                "in",  # 操作符(包含)
-                [  # 字段名列表
-                    "Contact-total_commission",  # 联系人-总分成金额字段
-                    "Contact-remaining_commission"  # 联系人-剩余分成金额字段
-                ]
-            ]
-        ]
-    }
+    "Custom Field"
 ]
+
+# 补丁路径配置
+patches_path = "commission_record.patches"
 
 # 安装前钩子
 # 应用安装前执行的Python函数
