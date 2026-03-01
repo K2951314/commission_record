@@ -22,7 +22,7 @@ translations = [
 # 定义文档生命周期事件的处理函数
 doc_events = {
     "Contact": {  # 文档类型(联系人)
-        "validate": "commission_record.commission_record.doctype.分成记录.分成记录.validate_contact"  # 验证时调用的函数路径
+        "validate": "commission_record.setup.validate_contact"  # 验证时调用的函数路径
         # 格式: "事件类型": "模块路径.函数名"
     }
 }
@@ -33,9 +33,6 @@ fixtures = [
     "Custom Field"
 ]
 
-# 补丁路径配置
-patches_path = "commission_record.patches"
-
 # 安装前钩子
 # 应用安装前执行的Python函数
 before_install = "commission_record.setup.before_install"  # 函数路径
@@ -44,9 +41,3 @@ before_install = "commission_record.setup.before_install"  # 函数路径
 # 应用安装后执行的Python函数
 after_install = "commission_record.setup.after_install"  # 函数路径
 
-# 报表配置
-# 定义报表数据获取函数
-get_report_data = {
-    "分成统计表": "commission_record.commission_record.report.分成统计表.分成统计表.execute"  # 报表名: 执行函数路径
-    # 格式: "报表名称": "模块路径.函数名"
-}

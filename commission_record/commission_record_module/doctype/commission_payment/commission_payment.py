@@ -110,10 +110,7 @@ class CommissionPayment(Document):
         # 更新关联记录
         self.update_commission_records()
         self.update_contact_commission()
-        
-        # 提交更改
-        frappe.db.commit()
-        
+
         # 记录调试信息
         frappe.logger().debug(f"Successfully submitted Commission Payment {self.name}")
     
@@ -125,10 +122,7 @@ class CommissionPayment(Document):
         # 更新关联记录
         self.update_commission_records(cancel=True)
         self.update_contact_commission()
-        
-        # 提交更改
-        frappe.db.commit()
-        
+
         # 记录调试信息
         frappe.logger().debug(f"Successfully cancelled Commission Payment {self.name}")
     
@@ -191,9 +185,6 @@ class CommissionPayment(Document):
             
             # 保存更新到数据库
             record.db_update()
-            
-            # 刷新文档，确保变更生效
-            frappe.db.commit()
 
     def update_contact_commission(self):
         """更新联系人的分成总额和剩余分成"""
