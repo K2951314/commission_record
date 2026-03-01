@@ -5,7 +5,6 @@ description = "Commission Record App"
 requires-python = ">=3.10"
 
 dependencies = [
-    "frappe"
 ]
 
 [build-system]

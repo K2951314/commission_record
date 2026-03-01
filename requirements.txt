@@ -1,2 +1,1 @@
-frappe
-erpnext
+# Managed by bench. Do not add frappe/erpnext here.
