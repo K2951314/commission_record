@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include commission_record *.css
+recursive-include commission_record *.csv
+recursive-include commission_record *.html
+recursive-include commission_record *.ico
+recursive-include commission_record *.js
+recursive-include commission_record *.json
+recursive-include commission_record *.md
+recursive-include commission_record *.png
+recursive-include commission_record *.py
+recursive-include commission_record *.svg
+recursive-include commission_record *.txt
+recursive-exclude commission_record *.pyc

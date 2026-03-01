@@ -1,0 +1,50 @@
+
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,支付金额必须大于0,Payment amount must be greater than 0
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,分成记录 {0} 必须是已提交状态,Commission record {0} must be submitted
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,分成记录 {0} 的联系人与当前支付记录不一致,Contact in commission record {0} does not match current payment record
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,分配金额必须大于0,Allocation amount must be greater than 0
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,该联系人没有未支付的分成记录,No unpaid commission records found for this contact
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,注意：还有 {0} 的金额未分配到任何分成记录。这可能是因为没有足够的未支付分成记录。,Note: {0} amount remains unallocated. This may be due to insufficient unpaid commission records.
+apps/commission_record/commission_record_module/doctype/commission_payment/commission_payment.py,未支付分成,Unpaid Commission
+
+# Module
+Commission Record Module,分成记录
+Export Excel Template,导出Excel模板
+
+# DocType: Commission Payment
+DocType: Commission Payment,Commission Payment,分成支付
+DocType: Commission Payment,Contact,联系人
+DocType: Commission Payment,Payment Amount,支付金额
+DocType: Commission Payment,Payment Date,支付日期
+DocType: Commission Payment,Total Allocated Amount,已分配金额
+DocType: Commission Payment,Remaining Amount,未分配金额
+DocType: Commission Payment,Allocations,分配明细
+
+# DocType: Commission Payment Allocation
+DocType: Commission Payment Allocation,Commission Record,分成记录
+DocType: Commission Payment Allocation,Commission Amount,分成金额
+DocType: Commission Payment Allocation,Allocated Amount,分配金额
+DocType: Commission Payment Allocation,Remaining Amount,剩余金额
+
+# DocType: Commission Record
+DocType: Commission Record,Commission Record,分成记录
+DocType: Commission Record,Contact,联系人
+DocType: Commission Record,Orders,订单
+DocType: Commission Record,Commission Payment,分成支付单据
+DocType: Commission Record,Total Sales Amount,销售总额
+DocType: Commission Record,Total Purchase Amount,采购总额
+DocType: Commission Record,Total Shipping Cost,快递总额
+DocType: Commission Record,Commission Amount,分成金额
+DocType: Commission Record,Payment Status,支付状态
+DocType: Commission Record,Remaining Commission,剩余分成
+DocType: Commission Record,Basic Information,基本信息
+DocType: Commission Record,Amount Information,金额信息
+DocType: Commission Record,Commission Percentage,分成比例
+
+# Status
+DocType: Commission Record,Unpaid,未支付
+DocType: Commission Record,Partially Paid,部分支付
+DocType: Commission Record,Paid,已支付
+
+Commission Record,分成记录
+Commission Payment,分成支付
