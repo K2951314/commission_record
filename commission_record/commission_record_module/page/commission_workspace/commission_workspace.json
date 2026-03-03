@@ -1,0 +1,32 @@
+{
+ "content": "[]",
+ "creation": "2026-03-03 12:00:00.000000",
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-03-03 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Commission Record Module",
+ "name": "commission-workspace",
+ "owner": "Administrator",
+ "page_name": "commission-workspace",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  }
+ ],
+ "script": "",
+ "standard": "Yes",
+ "title": "Commission Workspace"
+}

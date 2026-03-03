@@ -9,6 +9,8 @@
    "section_basic",  
    "contact",           
    "column_basic_right",  
+   "commission_ratio_numerator",
+   "commission_ratio_denominator",
    "commission_percentage",
    "order_section",
    "orders",
@@ -33,11 +35,25 @@
     "fieldtype": "Column Break"
    },
    {
+    "default": "1",
+    "fieldname": "commission_ratio_numerator",
+    "fieldtype": "Int",
+    "label": "分成分子",
+    "reqd": 1
+   },
+   {
+    "default": "2",
+    "fieldname": "commission_ratio_denominator",
+    "fieldtype": "Int",
+    "label": "分成分母",
+    "reqd": 1
+   },
+   {
     "default": "50",
     "fieldname": "commission_percentage",
     "fieldtype": "Percent",
     "label": "分成比例",
-    "reqd": 1
+    "read_only": 1
    },
    {
     "fieldname": "contact",

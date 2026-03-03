@@ -41,3 +41,6 @@ before_install = "commission_record.setup.before_install"  # 函数路径
 # 应用安装后执行的Python函数
 after_install = "commission_record.setup.after_install"  # 函数路径
 
+# 迁移后钩子
+after_migrate = "commission_record.setup.after_migrate"
+
